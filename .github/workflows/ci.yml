@@ -28,9 +28,9 @@ jobs:
       run: ./build.sh
     - if: matrix.runs-on == 'windows-latest' && github.ref != 'refs/heads/main' && !contains(github.ref, 'refs/tags/')
       run: ./build.ps1
-    - if: (matrix.runs-on == 'windows-latest') && (github.ref == 'refs/heads/main' || contains(github.ref, 'refs/tags/'))
+    # - if: (matrix.runs-on == 'windows-latest') && (github.ref == 'refs/heads/main' || contains(github.ref, 'refs/tags/'))
       env:
         NUGET_AUTH_TOKEN: ${{ secrets.AZURE_DEVOPS_TOKEN }}
       run: |
         ./build.ps1 sign
-        dotnet nuget push .\nuget\*.nupkg -s https://pkgs.dev.azure.com/itpro-devops/_packaging/ITPRO/nuget/v3/index.json
+        dotnet nuget push .\nuget\*.nupkg -s https://pkgs.dev.azure.com/itpro-devops/_packaging/ITPRO/nuget/v3/index.json -k az
