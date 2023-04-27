@@ -6,6 +6,8 @@ mkdir nuget
 
 dotnet tool restore
 
+echo $@
+
 pushd ./src/Storage
 ./build.sh "$@"
 popd
