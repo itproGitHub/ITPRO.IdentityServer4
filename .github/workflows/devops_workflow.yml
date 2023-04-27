@@ -45,7 +45,9 @@ jobs:
 
       # Run dotnet build and package
       - name: dotnet build and publish
-        run: ./build.sh
+        run: |
+          dotnet tool install --global SignClient --version 1.3.155
+          ./build.sh
 
       # Publish the package to Azure Artifacts
       - name: 'dotnet publish'
