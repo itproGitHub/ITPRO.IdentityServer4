@@ -27,8 +27,8 @@ jobs:
       - name: dotnet build and test
         run: |
           dotnet restore
-          dotnet build src/**/*.sln --configuration '${{ env.BUILD_CONFIGURATION }}'
-          dotnet test src/**/*.sln --configuration '${{ env.BUILD_CONFIGURATION }}'
+          dotnet build src/*.sln --configuration '${{ env.BUILD_CONFIGURATION }}'
+          dotnet test src/*.sln --configuration '${{ env.BUILD_CONFIGURATION }}'
 
   az-artifacts-build-and-deploy:
     needs: build
