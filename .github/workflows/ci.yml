@@ -11,6 +11,9 @@ on:
 
 env:
   DOTNET_NOLOGO: true
+  AZURE_ARTIFACTS_FEED_URL: https://pkgs.dev.azure.com/itpro-devops/_packaging/ITPRO/nuget/v3/index.json
+  BUILD_CONFIGURATION: 'Release'    # set this to the appropriate build configuration
+  DOTNET_VERSION: '3.1.x' 
 
 jobs:
   build:
@@ -22,6 +25,11 @@ jobs:
     runs-on: ${{ matrix.runs-on }}
     steps:
     - uses: actions/checkout@af513c7a016048ae468971c52ed77d9562c7c819
+      with:
+            dotnet-version: ${{ env.DOTNET_VERSION }}
+            source-url: ${{ env.AZURE_ARTIFACTS_FEED_URL }}
+          env:
+            NUGET_AUTH_TOKEN: ${{ secrets.AZURE_DEVOPS_TOKEN }} 
     - run: dotnet --info
     
     - if: contains(matrix.runs-on, 'macOS') || contains(matrix.runs-on, 'ubuntu')
@@ -29,8 +37,6 @@ jobs:
     - if: matrix.runs-on == 'windows-latest' && github.ref != 'refs/heads/main' && !contains(github.ref, 'refs/tags/')
       run: ./build.ps1
     - if: (matrix.runs-on == 'windows-latest') && (github.ref == 'refs/heads/main' || contains(github.ref, 'refs/tags/'))
-      env:
-        NUGET_AUTH_TOKEN: ${{ secrets.AZURE_DEVOPS_TOKEN }}
       run: |
         ./build.ps1
-        dotnet nuget push .\nuget\*.nupkg -s https://pkgs.dev.azure.com/itpro-devops/_packaging/ITPRO/nuget/v3/index.json -k az
+        dotnet nuget push .\nuget\*.nupkg -k az
