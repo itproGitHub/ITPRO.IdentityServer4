@@ -49,4 +49,4 @@ jobs:
 
       # Publish the package to Azure Artifacts
       - name: 'dotnet publish'
-        run: dotnet nuget push AzureArtifacts ./nuget/*.nupkg -k ${{ secrets.AZURE_DEVOPS_TOKEN }}
+        run: dotnet nuget push -ApiKey AzureArtifacts ./nuget/*.nupkg
