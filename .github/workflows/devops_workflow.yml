@@ -45,10 +45,7 @@ jobs:
 
       # Run dotnet build and package
       - name: dotnet build and publish
-        run: |
-          dotnet restore
-          dotnet build --configuration '${{ env.BUILD_CONFIGURATION }}'
-          dotnet pack -c '${{ env.BUILD_CONFIGURATION }}' --version-suffix $GITHUB_RUN_ID
+        run: ./build.sh
 
       # Publish the package to Azure Artifacts
       - name: 'dotnet publish'
