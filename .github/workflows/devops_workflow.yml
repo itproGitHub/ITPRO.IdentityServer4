@@ -32,4 +32,4 @@ jobs:
 
       # Publish the package to Azure Artifacts
       - name: 'dotnet publish'
-        run: dotnet nuget push ./nuget/*.nupkg --api-key az
+        run: dotnet nuget push .\nuget\*.nupkg --api-key az
