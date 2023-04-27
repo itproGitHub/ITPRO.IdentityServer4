@@ -6,7 +6,7 @@ mkdir nuget
 
 dotnet tool restore
 
-echo $@
+echo "TEEEEEEEEST $@"
 
 pushd ./src/Storage
 ./build.sh "$@"
