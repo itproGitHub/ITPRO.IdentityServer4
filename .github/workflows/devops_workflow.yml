@@ -24,11 +24,8 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       # Run dotnet build and package
-      - name: dotnet build and test
-        run: |
-          dotnet restore
-          dotnet build src/**/IdentityServer4.sln --configuration '${{ env.BUILD_CONFIGURATION }}'
-          dotnet test src/**/IdentityServer4.sln --configuration '${{ env.BUILD_CONFIGURATION }}'
+      - name: dotnet build
+        run: ./build.sh
 
   az-artifacts-build-and-deploy:
     needs: build
