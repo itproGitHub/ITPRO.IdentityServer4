@@ -30,7 +30,7 @@ jobs:
       run: ./build.ps1
     - if: (matrix.runs-on == 'windows-latest') && (github.ref == 'refs/heads/main' || contains(github.ref, 'refs/tags/'))
       env:
-        SignClientSecret: ${{ secrets.SIGNCLIENT }}
+        NUGET_AUTH_TOKEN: ${{ secrets.AZURE_DEVOPS_TOKEN }}
       run: |
         ./build.ps1 sign
-        dotnet nuget push .\nuget\*.nupkg -s https://www.myget.org/F/identity/api/v2/package -k ${{ secrets.MYGET }}
+        dotnet nuget push .\nuget\*.nupkg -s https://pkgs.dev.azure.com/itpro-devops/_packaging/ITPRO/nuget/v3/index.json
